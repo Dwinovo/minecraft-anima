@@ -1,8 +1,11 @@
 package com.dwinovo.anima;
 
 
+import com.dwinovo.anima.api.AnimaApi;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 
 @Mod(Constants.MOD_ID)
 public class AnimaMod {
@@ -17,5 +20,10 @@ public class AnimaMod {
         Constants.LOG.info("Hello NeoForge world!");
         CommonClass.init();
 
+        NeoForge.EVENT_BUS.addListener(AnimaMod::onEntityJoinLevel);
+    }
+
+    private static void onEntityJoinLevel(EntityJoinLevelEvent event) {
+        AnimaApi.onEntityLoad(event.getEntity());
     }
 }
